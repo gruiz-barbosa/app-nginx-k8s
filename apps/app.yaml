@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meu-aplicativo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: meu-aplicativo
+  template:
+    metadata:
+      labels:
+        app: meu-aplicativo
+    spec:
+      containers:
+      - name: meu-aplicativo-container
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: meu-aplicativo-service
+spec:
+  selector:
+    app: meu-aplicativo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
